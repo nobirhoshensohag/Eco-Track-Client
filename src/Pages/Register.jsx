@@ -14,6 +14,28 @@ const Register = () => {
         signInWithGoogle()
         .then((result) => {
             console.log(result.user);
+             const user = result.user;
+            const newUser = {
+                name: user.displayName,
+                email: user.email,
+                image: user.photoURL,
+                accessToken: user.accessToken,
+
+            }
+            // Now create user in the database
+            fetch(`http://localhost:3000/users`,{
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(newUser)
+            } )
+            .then(res => res.json())
+            .then(data =>  {
+                console.log("Data after user submission: ", data);
+            })
+
+
         })
         .catch((error)=>{
             console.log(error);

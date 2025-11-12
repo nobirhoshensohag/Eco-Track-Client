@@ -146,7 +146,7 @@ const Footer = () => {
                 </p>
                 <p>
                     Developed by —
-                    <Link to={""}className="text-[#82B532]">Nobir Hoshen</Link>
+                    <Link to={""}className="text-[#82B532]">Nobir Hoshen Sohag</Link>
                 </p>
 
 

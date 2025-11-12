@@ -1,15 +1,15 @@
-import React,{useState} from 'react';
-
+import React, { useState } from 'react';
 import Container from '../Layouts/Container';
 import { useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
+// import { toast } from 'react-toastify';
 import { IoEyeOff } from 'react-icons/io5';
 import { FaEye } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const Register = () => {
-       const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
         name: "",
         email: "",
         photoURL: "",
@@ -17,10 +17,11 @@ const Register = () => {
     });
     const [show, setShow] = useState(false);
     const [errors, setErrors] = useState({});
-    const { signInWithGoogle, createUser, updateUserProfile, signOutUser, setLoading, setUser } = useContext(AuthContext);
+    const { signInWithGoogle, createUser, updateUserProfile, signOutUser, setLoading, setUser, loading } = useContext(AuthContext);
     const navigate = useNavigate();
 
-      //  All Validation Patterns
+
+    //  All Validation Patterns
     const patterns = {
         name: /^[A-Za-z\s]{3,}$/,
         email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -77,11 +78,6 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const displayName = e.target.name?.value;
-        // const photoURL = e.target.photoURL?.value;
-        // const email = e.target.email?.value;
-        // const password = e.target.password?.value;
-        // console.log("signup function entered.", { displayName, photoURL, email, password });
 
         // Inline validation for each field
         validateField("name", formData.name);
@@ -93,7 +89,8 @@ const Register = () => {
         // Check if any error exists
         if (!formData.name || !formData.email || !formData.password || errors.name || errors.email || errors.photoURL || errors.password)
             return;
-
+        // Start loading
+        setLoading(true);
 
         console.log("Form Submitted:", formData);
 
@@ -113,7 +110,7 @@ const Register = () => {
                 // Step-2:  Uptade Profile 
                 updateUserProfile(displayName, photoURL)
                     .then(() => {
-                        console.log("Data after create user in the Firebase", res.user);
+                        // console.log("Data after create user in the Firebase", res.user);
                         setLoading(false);
                         const newUser = {
                             displayName,
@@ -193,12 +190,9 @@ const Register = () => {
 
     // signin with google 
 
-
-
-
     const handleGoogleSignIn = () => {
         signInWithGoogle()
-       .then((result) => {
+            .then((result) => {
                 console.log("Data after create user in firebase", result.user);
                 const user = result.user;
                 const newUser = {
@@ -222,15 +216,19 @@ const Register = () => {
                         console.log("Data after user submission: ", data);
                     })
                 setLoading(false);
-                signOutUser();
-                setUser(null);
+                // signOutUser();
+                // setUser(null);
                 toast.success("Signin with Google Successfull!");
-                navigate("/login");
+                // navigate("/login");
+
             })
-           .catch((error) =>{
-            console.log(error);
-        })
+            .catch((error) => {
+                console.log(error);
+            })
+
     }
+
+
 
     return (
         <div className=''>
@@ -238,13 +236,14 @@ const Register = () => {
                 <div>
                     <div className="card mx-auto my-10 bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                         <div className="card-body">
+                            <Link to={"/"} className=" mx-auto text-[#82B532] text-xl font-semibold"><figure className='w-12 pr-1'><img src={"https://i.ibb.co.com/tpnX8gT8/site-logo2.png"} alt="Site Logo" /></figure></Link>
                             <h1 className="text-3xl font-bold text-center ">Join EcoTrack</h1>
                             <form onSubmit={handleSubmit}>
 
                                 <fieldset className="fieldset">
                                     {/* Name*/}
-                                    <label className="label">Your Name</label>
-                                    <input onChange={handleChange} value={formData.name} type="text" name='name' required className={`input input-bordered w-full ${errors.name ? "border-red-500" : ""}`} placeholder="Ayan Sujon" />
+                                    <label className="label">Name</label>
+                                    <input onChange={handleChange} value={formData.name} type="text" name='name' required className={`input input-bordered w-full ${errors.name ? "border-red-500" : ""}`} placeholder="Your Name" />
                                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
 
                                     {/* PhotoURL */}
@@ -271,7 +270,23 @@ const Register = () => {
                                         <p className="text-red-500 text-sm mt-1">{errors.password}</p>
                                     )}
 
-                                    <button className="btn btn-neutral mt-4">Register</button>
+                                    {/* <button className="btn  text-white bg-[#297B33] hover:bg-[#82B532] mt-4">Register</button> */}
+
+
+                                    <button
+                                        type="submit"
+                                        className="btn text-white bg-[#297B33] hover:bg-[#82B532] mt-4 w-full"
+                                        disabled={loading}
+                                    >
+                                        {loading ? (
+                                            <>
+                                                <span className="loading loading-spinner"></span>
+                                                Registering...
+                                            </>
+                                        ) : (
+                                            "Register"
+                                        )}
+                                    </button>
                                 </fieldset>
                             </form>
                             {/* Google */}
@@ -279,11 +294,13 @@ const Register = () => {
                                 <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
                                 Continue with Google
                             </button>
+                            <p className='text-center'>Already have an accout? <Link to={"/login"} className={"font-semebold text-[#297B33] hover:underline"}>Log in</Link></p>
                         </div>
                     </div>
                 </div>
             </Container>
         </div>
+
     );
 };
 

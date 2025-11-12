@@ -7,9 +7,7 @@ import EventsCard from "../Components/EventsCard";
 const Events = () => {
 
 const {events}= useEvents();
-// console.log(events);
-  // Sort by date (latest upcoming first)
-//   const recentEvents = events?.sort((a, b) => new Date(a.date) - new Date(b.date))?.slice(0, 4); // Only 4 recent ones
+
 
   return (
     <section className="py-16 bg-base-200" id="upcoming-events">

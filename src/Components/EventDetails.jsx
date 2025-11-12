@@ -8,6 +8,7 @@ import Loading from "../Pages/Loading";
 const EventDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -16,13 +17,16 @@ const EventDetails = () => {
     email: "",
     userLocation: "",
   });
+  const [joining, setJoining] = useState(false); // Button loading state
 
+  // Fetch event details
   useEffect(() => {
     const fetchEvent = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/events/${id}`);
         setEvent(res.data);
       } catch (error) {
+        console.error(error);
         toast.error("Failed to load event details");
       } finally {
         setLoading(false);
@@ -31,7 +35,8 @@ const EventDetails = () => {
     fetchEvent();
   }, [id]);
 
-  const handleJoin = () => {
+  // Open modal
+  const handleJoinClick = () => {
     if (event.currentParticipants >= event.maxParticipants) {
       toast.error("Event is full!");
     } else {
@@ -39,32 +44,43 @@ const EventDetails = () => {
     }
   };
 
+  // Form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const joinTime = new Date().toLocaleString();
-
     try {
-      // Send join data to backend (optional)
-      // await axios.post(`http://localhost:3000/api/events/${id}/join`, { ...formData });
+      setJoining(true);
 
+      await axios.post("http://localhost:3000/api/joined-events", {
+        participantName: formData.name,
+        participantEmail: formData.email,
+        participantLocation: formData.userLocation, 
+        challengeId: id, 
+      });
+
+     
       setEvent((prev) => ({
         ...prev,
         currentParticipants: prev.currentParticipants + 1,
       }));
 
+      const joinTime = new Date().toLocaleString();
       toast.success(`You joined the event at ${joinTime}`);
       setShowModal(false);
       setFormData({ name: "", email: "", userLocation: "" });
     } catch (error) {
-      toast.error("Failed to join the event");
+      console.error(error.response?.data || error.message);
+      toast.error(error.response?.data?.message || "Failed to join the event");
+    } finally {
+      setJoining(false);
     }
   };
 
-  if (loading) return <Loading/>;
-  if (event) return <p className="flex justify-center mt-10">Event not found</p>;
+  if (loading) return <Loading />;
+  if (!event) return <p className="flex justify-center mt-10">Event not found</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 mt-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+    <div className="max-w-3xl my-10 mx-auto p-6 mt-8 bg-white rounded-2xl shadow-lg border border-gray-200">
+      {/* Event Details */}
       <h1 className="text-2xl font-semibold text-[#297B33] mb-4">{event.title}</h1>
       <p className="text-gray-700 mb-4">{event.description}</p>
 
@@ -84,6 +100,7 @@ const EventDetails = () => {
         </p>
       </div>
 
+      {/* Buttons */}
       <div className="flex gap-4">
         <button
           onClick={() => navigate(-1)}
@@ -92,7 +109,7 @@ const EventDetails = () => {
           ← Back
         </button>
         <button
-          onClick={handleJoin}
+          onClick={handleJoinClick}
           disabled={event.currentParticipants >= event.maxParticipants}
           className={`px-4 py-2 rounded-full text-white transition-all ${
             event.currentParticipants >= event.maxParticipants
@@ -120,45 +137,33 @@ const EventDetails = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
                   className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-[#297B33]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
                   className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-[#297B33]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Location
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Location</label>
                 <input
                   type="text"
                   value={formData.userLocation}
-                  onChange={(e) =>
-                    setFormData({ ...formData, userLocation: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, userLocation: e.target.value })}
                   required
                   className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-[#297B33]"
                 />
@@ -167,9 +172,10 @@ const EventDetails = () => {
               <div className="pt-4 flex justify-end">
                 <button
                   type="submit"
+                  disabled={joining}
                   className="bg-[#297B33] hover:bg-[#82B532] text-white font-semibold px-4 py-2 rounded-full transition-all"
                 >
-                  Confirm Join
+                  {joining ? "Joining..." : "Confirm Join"}
                 </button>
               </div>
             </form>

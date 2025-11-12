@@ -9,7 +9,7 @@ import { Link } from "react-router";
 
 const HeroSlider = () => {
   return (
-    <div className="h-[90vh] w-full overflow-hidden">
+    <div className="h-[80vh] w-full overflow-hidden">
       <Swiper
         direction="vertical"
         pagination={{ clickable: true }}
@@ -56,7 +56,7 @@ const HeroSlider = () => {
             className="flex flex-col items-center justify-center h-full text-white text-center p-6 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url('https://i.ibb.co.com/xKLR8nKn/Discover-Local-Green-Events.jpg')",
+                "url('https://i.ibb.co.com/nMt75HSg/erik-mclean-s0y4-Uy1-Aaps-unsplash.jpg')",
             }}
           >
             <div className="bg-black/40 p-10 rounded-2xl">
@@ -96,7 +96,7 @@ const HeroSlider = () => {
             className="flex flex-col items-center justify-center h-full text-white text-center p-6 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url('https://i.ibb.co.com/tMQ5P887/Share-Your-Eco-Tips.png')",
+                "url('https://i.ibb.co.com/5hb0zCzF/bernd-dittrich-rs-PCddfr-Cjg-unsplash.jpg')",
             }}
           >
             <div className="bg-black/40 p-10 rounded-2xl">

@@ -2,12 +2,32 @@ import React from 'react';
 import { Link } from 'react-router';
 import useEcoTips from '../Hooks/useEcoTips';
 import EcoTipCard from '../Components/EcoTipCard';
+import EcoTipCardSkeleton from '../Components/EcoTipCardSkeleton';
+import Container from '../Layouts/Container';
 
 
 const EcoTips = () => {
-    const {EcoTips} = useEcoTips();
+    const {EcoTips, loading, error} = useEcoTips();
 
-      
+     
+  if (loading) {
+    return (
+        <Container>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+          <EcoTipCardSkeleton key={n} />
+        ))}
+      </div>
+        </Container>
+    );
+  }
+
+  if (error) {
+    return <p className="text-red-500 text-center mt-10">{error}</p>;
+  }
+
+
+
 
 
     return (

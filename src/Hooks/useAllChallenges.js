@@ -32,11 +32,11 @@ const useAllChallenges = (filters = {}) => {
           }
         }
 
-        setChallenges(data); // filtered or all data
+        setChallenges(data); 
       })
       .catch(err => setError(err))
       .finally(() => setLoading(false));
-  }, [filters]); // run whenever filters change
+  }, [filters]); 
 
   return { challenges, loading, error };
 };

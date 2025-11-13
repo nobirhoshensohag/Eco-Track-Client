@@ -34,6 +34,26 @@ The platform fosters both personal growth and collective impact by helping users
 
 ---
 
+## 🛠️ Tech Stack
+
+### 🌱 Frontend:
+![React](https://img.shields.io/badge/React-2E8B57?style=for-the-badge&logo=react&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3CB371?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-228B22?style=for-the-badge&logo=framer&logoColor=white)
+![Lottie React](https://img.shields.io/badge/Lottie_React-2E8B57?style=for-the-badge)
+![React Toastify](https://img.shields.io/badge/React_Toastify-3CB371?style=for-the-badge)
+![SweetAlert2](https://img.shields.io/badge/SweetAlert2-228B22?style=for-the-badge)
+
+### 🌿 Backend:
+![Node.js](https://img.shields.io/badge/Node.js-006400?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/Express.js-2E8B57?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-006400?style=for-the-badge&logo=mongodb&logoColor=white)
+
+### 🌏 Deployment:
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Firebase](https://img.shields.io/badge/Firebase-32CD32?style=for-the-badge&logo=firebase&logoColor=white)
+
+
 ## 🎯 Purpose  
 
 The main goals of **EcoTrack** are:

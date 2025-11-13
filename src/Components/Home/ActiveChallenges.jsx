@@ -11,7 +11,7 @@ const ActiveChallenges = () => {
 
         // Sort challenges by _id (recent first)
   const sortedChallenges = [...challenges].sort(
-    (a, b) => b._id.localeCompare(a._id) 
+    (a, b) => b._id.localeCompare(a._id) // newest first
   );
 
     // Filter active challenges

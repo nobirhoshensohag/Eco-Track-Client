@@ -15,7 +15,7 @@ const MyActivities = () => {
 
   const fetchChallenges = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/challenges");
+      const res = await fetch("https://eco-track-server-five.vercel.app/api/challenges");
       const data = await res.json();
       const userChallenges = data.filter((c) => c.createdBy === user.email);
       setChallenges(userChallenges);
@@ -38,12 +38,12 @@ const handleDelete = (id) => {
     customClass: {
       confirmButton: "bg-[#297B33] hover:bg-[#82B532] text-white py-2 px-4 rounded-xl transition-colors mr-5",
       cancelButton: "bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-xl transition-colors",
-      popup: "swal2-popup-custom", // Custom class for popup
+      popup: "swal2-popup-custom", 
     },
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        const res = await fetch(`http://localhost:3000/api/challenges/${id}`, {
+        const res = await fetch(`https://eco-track-server-five.vercel.app/api/challenges/${id}`, {
           method: "DELETE",
         });
         const data = await res.json();

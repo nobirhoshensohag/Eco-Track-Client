@@ -25,7 +25,7 @@ const Newsletter = () => {
 
 
      // Post data to MongoDB database
-fetch('http://localhost:3000/api/subscribe', {
+fetch('https://eco-track-server-five.vercel.app/api/subscribe', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'

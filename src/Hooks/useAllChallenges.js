@@ -9,7 +9,7 @@ const useAllChallenges = (filters = {}) => {
   useEffect(() => {
     setLoading(true);
 
-    axios('http://localhost:3000/api/challenges')
+    axios('https://eco-track-server-five.vercel.app/api/challenges')
       .then(res => {
         let data = res.data;
 
@@ -32,11 +32,11 @@ const useAllChallenges = (filters = {}) => {
           }
         }
 
-        setChallenges(data); 
+        setChallenges(data); // filtered or all data
       })
       .catch(err => setError(err))
       .finally(() => setLoading(false));
-  }, [filters]); 
+  }, [filters]); // run whenever filters change
 
   return { challenges, loading, error };
 };

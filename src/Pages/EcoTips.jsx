@@ -9,7 +9,9 @@ import Container from '../Layouts/Container';
 const EcoTips = () => {
     const {EcoTips, loading, error} = useEcoTips();
 
-     
+      // Sort tips by createdAt (newest first)
+//   const recentTips = [...EcoTips].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6);
+
   if (loading) {
     return (
         <Container>

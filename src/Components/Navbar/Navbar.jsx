@@ -75,21 +75,7 @@ const Navbar = () => {
                                 )
                             }
                         </div>
-                        {/* 
-                        <div className=" hidden lg:flex">
-                            <ul className="menu menu-horizontal px-1">
-                                {links}
-                            </ul>
-                        </div>
-
-                    <div className="navbar-end">
-                        {
-                            user ?
-                                <Link onClick={signOutUser} className="btn">Sign Out</Link>
-                                :
-                                <Link to={"/login"} className="btn">Sign In</Link>
-                        }
-                    </div> */}
+                       
                     </div>
                 </nav>
             </Container>

@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroSlider from '../Components/Home/HeroSlider';
-import EcoStatusCards from "../components/Home/EcoStatusCards";
+import EcoStatusCards from "../Components/Home/EcoStatusCards";
 import useChallenges from '../Hooks/useChallenges';
 import Loading from './Loading';
 import Error404 from './Error404';

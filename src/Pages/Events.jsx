@@ -6,14 +6,9 @@ import EcoTipCardSkeleton from "../Components/EcoTipCardSkeleton";
 import Container from "../Layouts/Container";
 
 
-
 const Events = () => {
 
-
 const {events, loading, error}= useEvents();
-
-
-
 
   if (loading) {
     return (
@@ -30,6 +25,8 @@ const {events, loading, error}= useEvents();
   if (error) {
     return <p className="text-red-500 text-center mt-10">{error}</p>;
   }
+
+
 
 
 

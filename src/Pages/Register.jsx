@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Container from '../Layouts/Container';
 import { useContext } from 'react';
@@ -92,19 +93,14 @@ const Register = () => {
         // Start loading
         setLoading(true);
 
-        console.log("Form Submitted:", formData);
-
-
-        // firebase user Create functionalities
+        
         const displayName = formData.name;
         const photoURL = formData.photoURL;
         const email = formData.email;
         const password = formData.password;
 
 
-        // console.log({email, password, displayName, photoURL})
-
-        // Step 1: create user
+       
         createUser(email, password)
             .then(res => {
                 // Step-2:  Uptade Profile 
@@ -121,7 +117,7 @@ const Register = () => {
                         }
 
                         // Now create user in the database
-                        fetch(`http://localhost:3000/users`, {
+                        fetch(`https://eco-track-server-five.vercel.app/users`, {
                             method: 'POST',
                             headers: {
                                 'content-type': 'application/json'
@@ -193,7 +189,7 @@ const Register = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then((result) => {
-                console.log("Data after create user in firebase", result.user);
+                // console.log("Data after create user in firebase", result.user);
                 const user = result.user;
                 const newUser = {
                     name: user.displayName,
@@ -204,7 +200,7 @@ const Register = () => {
 
                 }
                 // Now create user in the database
-                fetch(`http://localhost:3000/users`, {
+                fetch(`https://eco-track-server-five.vercel.app/users`, {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -216,10 +212,9 @@ const Register = () => {
                         console.log("Data after user submission: ", data);
                     })
                 setLoading(false);
-                // signOutUser();
-                // setUser(null);
+               
                 toast.success("Signin with Google Successfull!");
-                // navigate("/login");
+                
 
             })
             .catch((error) => {
@@ -242,8 +237,8 @@ const Register = () => {
 
                                 <fieldset className="fieldset">
                                     {/* Name*/}
-                                    <label className="label">Name</label>
-                                    <input onChange={handleChange} value={formData.name} type="text" name='name' required className={`input input-bordered w-full ${errors.name ? "border-red-500" : ""}`} placeholder="Your Name" />
+                                    <label className="label">Your Name</label>
+                                    <input onChange={handleChange} value={formData.name} type="text" name='name' required className={`input input-bordered w-full ${errors.name ? "border-red-500" : ""}`} placeholder="Full Name" />
                                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
 
                                     {/* PhotoURL */}

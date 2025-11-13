@@ -7,18 +7,23 @@ import { useEffect } from 'react';
 
 const googleProvider = new GoogleAuthProvider();
 
+
+
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+
+
+
+
     // Create new user 
-    const createUser = (email, password) =>{
+    const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
 
     }
-     
-     // Update user Profile 
+    // Update user Profile 
     const updateUserProfile = (displayName, photoURL) => {
         setLoading(true);
         return updateProfile(auth.currentUser, {
@@ -33,7 +38,7 @@ const AuthProvider = ({ children }) => {
     }
 
     // Sign in user with Google
-    const signInWithGoogle = () =>{
+    const signInWithGoogle = () => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider)
     }
@@ -41,18 +46,18 @@ const AuthProvider = ({ children }) => {
 
 
     // Sign Out User 
-    const signOutUser = () =>{
+    const signOutUser = () => {
         setLoading(true);
         return signOut(auth);
     }
 
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser)=>{
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
         })
-        return()=>{
+        return () => {
             unsubscribe()
         }
     }, [])
@@ -60,17 +65,19 @@ const AuthProvider = ({ children }) => {
 
 
 
-const authInfo ={
-
-        user, 
+    const authInfo = {
+        user,
         setUser,
         loading,
         setLoading,
-         createUser,
-          updateUserProfile,
+        createUser,
+        updateUserProfile,
         loginUser,
         signInWithGoogle,
         signOutUser,
+
+
+
 
 
     };

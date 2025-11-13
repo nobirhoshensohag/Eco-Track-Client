@@ -23,7 +23,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/events/${id}`);
+        const res = await axios.get(`https://eco-track-server-five.vercel.app/api/events/${id}`);
         setEvent(res.data);
       } catch (error) {
         console.error(error);
@@ -50,14 +50,14 @@ const EventDetails = () => {
     try {
       setJoining(true);
 
-      await axios.post("http://localhost:3000/api/joined-events", {
+      await axios.post("https://eco-track-server-five.vercel.app/api/joined-events", {
         participantName: formData.name,
         participantEmail: formData.email,
-        participantLocation: formData.userLocation, 
-        challengeId: id, 
+        participantLocation: formData.userLocation, // Backend field name
+        challengeId: id, // Event / Challenge ID
       });
 
-     
+      // Update participant count in frontend
       setEvent((prev) => ({
         ...prev,
         currentParticipants: prev.currentParticipants + 1,

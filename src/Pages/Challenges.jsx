@@ -18,15 +18,13 @@ const Challenges = () => {
 
   // Predefined categories for dropdown
   const categories = [
-     "Waste Reduction",
+    "Waste Reduction",
     "Water Conservation",
     "Transportation",
-    "Sustainable Living",
-    "Energy Conservation",
     "Community",
     "Sustainable Eating",
     "Food Sustainability",
-    "Environment"
+    "Environment",
   ];
 
   // Apply filters button
@@ -65,7 +63,6 @@ const Challenges = () => {
   if (error) {
     return <p className="text-red-500 text-center mt-10">{error}</p>;
   }
-
 
 
   return (

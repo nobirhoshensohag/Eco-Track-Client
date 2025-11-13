@@ -3,11 +3,12 @@ import { FaPlus } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import Loading from "./Loading";
+
 
 const AddChallenges = () => {
-  const { user } = useContext(AuthContext);
-   const navigate = useNavigate();
-
+  const { user, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
       title: "",
@@ -25,7 +26,7 @@ const AddChallenges = () => {
 
   const [errors, setErrors] = useState({});
 
-   const categories = [
+  const categories = [
     "Waste Reduction",
     "Water Conservation",
     "Transportation",
@@ -34,7 +35,7 @@ const AddChallenges = () => {
     "Community",
     "Sustainable Eating",
     "Food Sustainability",
-    "Environment"
+    "Environment",
   ];
 
   const handleChange = (e) => {
@@ -76,9 +77,10 @@ const AddChallenges = () => {
       imageUrl: "",
       createdBy: user.email,
     });
-    
+   
 
-fetch(`http://localhost:3000/api/challenges`, {
+
+fetch(`https://eco-track-server-five.vercel.app/api/challenges`, {
   method: "POST",
   headers: {
     "content-type": "application/json",
@@ -113,16 +115,11 @@ fetch(`http://localhost:3000/api/challenges`, {
         },
       });
     }
+     if (loading) return <Loading />;
   })
   .catch((error) => console.error("Error:", error));
 
-
-
-
-
-
-
-    
+   
   };
 
 return (
